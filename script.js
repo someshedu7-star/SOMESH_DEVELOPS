@@ -2,7 +2,7 @@ const reviewForm = document.querySelector('#review-form');
 const reviewList = document.querySelector('#review-list');
 const formStatus = document.querySelector('#form-status');
 const revealElements = document.querySelectorAll('.reveal');
-const API_BASE = 'https://somesh-will-fly.onrender.com';
+const API_BASE = 'https://somesh-develops.onrender.com';
 const storageKeys = {
   reviews: 'somesh-blog-reviews'
 };
@@ -165,3 +165,4 @@ const observer = new IntersectionObserver(entries => {
 
 revealElements.forEach(element => observer.observe(element));
 loadReviews();
+

@@ -7,7 +7,7 @@ const adminActions = document.querySelector('#admin-actions');
 const adminWelcome = document.querySelector('#admin-welcome');
 const adminReviewList = document.querySelector('#admin-review-list');
 const logoutButton = document.querySelector('#logout-button');
-const API_BASE = 'https://somesh-will-fly.onrender.com';
+const API_BASE = 'https://somesh-develops.onrender.com';
 const storageKeys = {
   reviews: 'somesh-blog-reviews',
   admin: 'somesh-blog-admin',
@@ -407,3 +407,4 @@ adminReviewList.addEventListener('click', async event => {
 });
 
 checkAdminStatus();
+
