@@ -51,9 +51,11 @@
   src="Me.jpeg" 
   alt="Portrait of Somesh Anil Bali" 
   class="profile-image"
-  onclick="playSound()"
+  id="profilePhoto"
 >
-        <audio id="heySound" src="hey-how-are-you.mp3"></audio>
+        <audio id="heySound" preload="auto">
+  <source src="hey-how-are-you.mp3" type="audio/mpeg">
+</audio>
         
         <div class="hero-card-content">
           <p class="mini-label">Current Focus</p>
