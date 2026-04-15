@@ -169,6 +169,11 @@ function playSound() {
 function playSound() {
   document.getElementById("heySound").play();
 }
+document.getElementById("profilePhoto").addEventListener("click", function () {
+  const sound = document.getElementById("heySound");
+  sound.currentTime = 0;
+  sound.play();
+});
 
 revealElements.forEach(element => observer.observe(element));
 loadReviews();
