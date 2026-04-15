@@ -491,4 +491,8 @@ if (require.main === module) {
   });
 }
 
+function playPiano(){
+  document.getElementById("pianoSound").play();
+}
+
 module.exports = server;
