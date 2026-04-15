@@ -166,6 +166,9 @@ const observer = new IntersectionObserver(entries => {
 function playSound() {
   document.getElementById("heySound").play();
 }
+function playSound() {
+  document.getElementById("heySound").play();
+}
 
 revealElements.forEach(element => observer.observe(element));
 loadReviews();
