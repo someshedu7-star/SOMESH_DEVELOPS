@@ -10,7 +10,16 @@
   --accent-strong: #78c4ff;
   --shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
 }
+.timeline-item {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.6s ease;
+}
 
+.timeline-item.show {
+  opacity: 1;
+  transform: translateY(0);
+}
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
