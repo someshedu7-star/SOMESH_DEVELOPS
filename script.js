@@ -163,6 +163,10 @@ const observer = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.16 });
 
+function playSound() {
+  document.getElementById("heySound").play();
+}
+
 revealElements.forEach(element => observer.observe(element));
 loadReviews();
 
