@@ -177,4 +177,14 @@ document.getElementById("profilePhoto").addEventListener("click", function () {
 
 revealElements.forEach(element => observer.observe(element));
 loadReviews();
+const items = document.querySelectorAll(".timeline-item");
+
+window.addEventListener("scroll", () => {
+  items.forEach((item) => {
+    const rect = item.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 100) {
+      item.classList.add("show");
+    }
+  });
+});
 
