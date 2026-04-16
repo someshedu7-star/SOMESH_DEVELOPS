@@ -109,6 +109,15 @@ function setSignupState() {
   signupForm.classList.remove('hidden-block');
   loginForm.classList.add('hidden-block');
   adminActions.classList.add('hidden-block');
+
+  if (openExperienceBtn) openExperienceBtn.classList.add('hidden-block');
+}
+function setLoginState() {
+  signupForm.classList.add('hidden-block');
+  loginForm.classList.remove('hidden-block');
+  adminActions.classList.add('hidden-block');
+
+  if (openExperienceBtn) openExperienceBtn.classList.add('hidden-block');
 }
 
 function setLoggedInState(username) {
