@@ -200,3 +200,28 @@ btn.addEventListener("click", () => {
     btn.innerText = "See Timeline";
   }
 });
+
+// 🔥 LOAD EXPERIENCES
+function loadExperiences() {
+  const container = document.getElementById('experience-list');
+  const data = JSON.parse(localStorage.getItem('somesh-experiences') || '[]');
+
+  if (!data.length) {
+    container.innerHTML = "<p>No experiences yet</p>";
+    return;
+  }
+
+  container.innerHTML = data.reverse().map(exp => `
+    <div class="card">
+      <img src="${exp.image}" style="width:100%; border-radius:12px;">
+      <p>${exp.text}</p>
+    </div>
+  `).join('');
+}
+
+// 🔔 Banner click scroll
+document.getElementById('experience-banner').onclick = () => {
+  document.getElementById('experiences').scrollIntoView({ behavior: 'smooth' });
+};
+
+loadExperiences();
