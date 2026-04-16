@@ -25,7 +25,43 @@
       <a href="./index.html">Back to Site</a>
     </nav>
   </header>
+<!-- LOGIN SECTION -->
+<form id="login-form" class="review-form">
+  <label>
+    Email
+    <input type="email" id="email" placeholder="Enter your email" required>
+  </label>
+  <label>
+    Password
+    <input type="password" id="password" placeholder="Enter password" required>
+  </label>
+  <button class="button primary" type="submit">Log In</button>
+</form>
 
+<!-- ADMIN PANEL (HIDDEN UNTIL LOGIN) -->
+<div id="admin-actions" class="hidden-block">
+  <div class="admin-topbar">
+    <p id="admin-welcome" class="mini-label"></p>
+    <button id="logout-button" class="button secondary" type="button">Log Out</button>
+  </div>
+
+  <p class="hero-text">Post your experience here.</p>
+
+  <!-- NEW EXPERIENCE FORM -->
+  <div class="review-form">
+    <label>
+      Experience Text
+      <textarea id="textInput" placeholder="Write your experience..." required></textarea>
+    </label>
+
+    <label>
+      Upload Image
+      <input type="file" id="imgInput" accept="image/*">
+    </label>
+
+    <button class="button primary" onclick="addPost()">Post Experience</button>
+  </div>
+</div>
   <main>
     <section class="section admin-shell reveal visible">
       <div class="admin-panel card">
