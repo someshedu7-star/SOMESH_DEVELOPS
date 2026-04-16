@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,14 +6,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Somesh Admin</title>
   <meta name="description" content="Admin dashboard for Somesh's personal blog.">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Space+Grotesk:wght@500;700&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="./style.css">
 </head>
+
 <body>
   <div class="bg-orb orb-one"></div>
   <div class="bg-orb orb-two"></div>
+
+  <!-- HEADER -->
   <header class="site-header">
     <div class="brand-wrap">
       <div class="brand">SB</div>
@@ -25,122 +32,105 @@
       <a href="./index.html">Back to Site</a>
     </nav>
   </header>
-<!-- LOGIN SECTION -->
-<form id="login-form" class="review-form">
-  <label>
-    Email
-    <input type="email" id="email" placeholder="Enter your email" required>
-  </label>
-  <label>
-    Password
-    <input type="password" id="password" placeholder="Enter password" required>
-  </label>
-  <button class="button primary" type="submit">Log In</button>
-</form>
 
-<!-- ADMIN PANEL (HIDDEN UNTIL LOGIN) -->
-<div id="admin-actions" class="hidden-block">
-  <div class="admin-topbar">
-    <p id="admin-welcome" class="mini-label"></p>
-    <button id="logout-button" class="button secondary" type="button">Log Out</button>
-  </div>
-
-  <p class="hero-text">You can reply to reviews, remove them, or post experiences.</p>
-
-  <!-- 🔽 ADD THIS LINE -->
-  <button id="open-experience" class="button primary" type="button">
-    + Add Experience
-  </button>
-</div>
-
-  <p class="hero-text">Post your experience here.</p>
-
-  <!-- NEW EXPERIENCE FORM -->
-  <div class="review-form">
-    <label>
-      Experience Text
-      <textarea id="textInput" placeholder="Write your experience..." required></textarea>
-    </label>
-
-    <label>
-      Upload Image
-      <input type="file" id="imgInput" accept="image/*">
-    </label>
-
-    <button class="button primary" onclick="addPost()">Post Experience</button>
-  </div>
-</div>
   <main>
     <section class="section admin-shell reveal visible">
+
+      <!-- ADMIN PANEL -->
       <div class="admin-panel card">
+
         <p class="eyebrow">Admin Setup</p>
         <h2 id="admin-heading">Create your admin account</h2>
-        <p id="admin-description" class="hero-text">Sign up once to manage reviews, delete spam, and reply to visitors.</p>
-        <!-- ✨ NEW: Experience Posting Section -->
-<div id="experience-panel" class="card hidden-block">
-  <p class="eyebrow">New Feature</p>
-  <h2>Post Personal Experience</h2>
-  <p class="hero-text">Share a highlighted personal moment that will appear on your website.</p>
+        <p id="admin-description" class="hero-text">
+          Sign up once to manage reviews, delete spam, and reply to visitors.
+        </p>
 
-  <form id="experience-form" class="review-form">
-    <label>
-      Experience Text
-      <textarea name="experience" rows="4" placeholder="Write your experience..." required></textarea>
-    </label>
-
-    <label>
-      Upload Image
-      <input type="file" name="image" accept="image/*" required>
-    </label>
-
-    <button class="button primary" type="submit">
-      Post Experience 🚀
-    </button>
-  </form>
-
-  <p id="experience-status" class="form-status"></p>
-</div>
-
+        <!-- SIGNUP -->
         <form id="signup-form" class="review-form">
           <label>
             Username
-            <input type="text" name="username" maxlength="32" placeholder="Choose an admin name" required>
+            <input type="text" name="username" maxlength="32" required>
           </label>
+
           <label>
             Password
-            <input type="password" name="password" minlength="6" placeholder="At least 6 characters" required>
+            <input type="password" name="password" minlength="6" required>
           </label>
+
           <button class="button primary" type="submit">Sign Up</button>
         </form>
 
+        <!-- LOGIN -->
         <form id="login-form" class="review-form hidden-block">
           <label>
             Username
-            <input type="text" name="username" maxlength="32" placeholder="Enter your admin name" required>
+            <input type="text" name="username" required>
           </label>
+
           <label>
             Password
-            <input type="password" name="password" minlength="6" placeholder="Enter password" required>
+            <input type="password" name="password" required>
           </label>
+
           <button class="button primary" type="submit">Log In</button>
         </form>
 
+        <!-- ADMIN ACTIONS -->
         <div id="admin-actions" class="hidden-block">
           <div class="admin-topbar">
             <p id="admin-welcome" class="mini-label"></p>
-            <button id="logout-button" class="button secondary" type="button">Log Out</button>
+            <button id="logout-button" class="button secondary" type="button">
+              Log Out
+            </button>
           </div>
-          <p class="hero-text">You can reply to reviews or remove them from here.</p>
+
+          <p class="hero-text">
+            You can reply to reviews, remove them, or post experiences.
+          </p>
+
+          <!-- BUTTON -->
+          <button id="open-experience" class="button primary" type="button">
+            + Add Experience
+          </button>
         </div>
 
-        <p id="admin-status" class="form-status" aria-live="polite"></p>
+        <p id="admin-status" class="form-status"></p>
       </div>
 
+      <!-- REVIEW MANAGER -->
       <div class="card">
         <p class="eyebrow">Review Manager</p>
         <h2>Manage community feedback</h2>
         <div id="admin-review-list" class="review-list"></div>
       </div>
+
+      <!-- 🔥 EXPERIENCE PANEL (CORRECT POSITION) -->
+      <div id="experience-panel" class="card hidden-block">
+        <p class="eyebrow">New Feature</p>
+        <h2>Post Personal Experience</h2>
+        <p class="hero-text">
+          Share a highlighted personal moment that will appear on your website.
+        </p>
+
+        <form id="experience-form" class="review-form">
+          <label>
+            Experience Text
+            <textarea name="experience" rows="4" required></textarea>
+          </label>
+
+          <label>
+            Upload Image
+            <input type="file" name="image" accept="image/*" required>
+          </label>
+
+          <button class="button primary" type="submit">
+            Post Experience 🚀
+          </button>
+        </form>
+
+        <p id="experience-status" class="form-status"></p>
+      </div>
+
     </section>
   </main>
 
@@ -148,3 +138,4 @@
   <script src="./ui-effects.js"></script>
 </body>
 </html>
+```
