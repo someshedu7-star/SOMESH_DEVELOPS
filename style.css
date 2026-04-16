@@ -330,7 +330,7 @@ textarea { resize: vertical; }
   display: inline-block;
   width: 0;
 
-  animation: typing 3s steps(16, end) forwards, blink 0.7s infinite;
+
 
   text-shadow:
     0 0 5px #ff6a00,
@@ -340,20 +340,7 @@ textarea { resize: vertical; }
     0 0 60px #ff0000;
 }
 
-@keyframes typing {
-  from {
-    width: 0;
-  }
-  to {
-    width: 16ch;
-  }
-}
 
-@keyframes blink {
-  50% {
-    border-color: transparent;
-  }
-}
 /* ===== GLOWING TIMELINE ===== */
 
 #timeline {
