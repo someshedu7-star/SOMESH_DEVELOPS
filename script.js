@@ -188,3 +188,15 @@ window.addEventListener("scroll", () => {
   });
 });
 
+const btn = document.getElementById("toggleTimeline");
+const timeline = document.getElementById("timeline");
+
+btn.addEventListener("click", () => {
+  if (timeline.style.display === "none") {
+    timeline.style.display = "block";
+    btn.innerText = "Hide Timeline";
+  } else {
+    timeline.style.display = "none";
+    btn.innerText = "See Timeline";
+  }
+});
