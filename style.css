@@ -328,9 +328,10 @@ textarea { resize: vertical; }
   overflow:hidden;
   border-right:4px solid #ffae00;
 
-  /* typing animation */
-  width:0;
-  animation: typing 3s steps(0) forwards, blink .7s infinite;
+  width: fit-content;
+
+  animation: typing 3s steps(20, end) forwards, blink .7s infinite;
+}
 
   /* fire glow */
   text-shadow:
