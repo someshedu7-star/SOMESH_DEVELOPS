@@ -125,7 +125,13 @@ main { width: min(1120px, calc(100% - 32px)); margin: 28px auto 0; }
   border: 1px solid var(--line);
   background: linear-gradient(180deg, rgba(12, 23, 38, 0.92), rgba(8, 15, 27, 0.82));
 }
-.profile-image { width: min(100%, 340px); margin: 0 auto; }
+.profile-image {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 20px;
+  display: block;
+}
 .hero-card-content { padding: 8px 10px 4px; }
 .mini-label { color: var(--text); font-weight: 700; }
 .focus-list { padding-left: 18px; color: var(--muted); line-height: 1.8; }
