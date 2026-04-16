@@ -173,12 +173,13 @@ experienceForm?.addEventListener('submit', (e) => {
 signupForm.addEventListener('submit', (e) => {
   e.preventDefault();
 
-  const u = signupForm.username.value;
-  const p = signupForm.password.value;
+  const u = signupForm.querySelector('[name="username"]').value;
+  const p = signupForm.querySelector('[name="password"]').value;
 
   writeJson(storageKeys.admin, { username: u, password: p });
   setSession(u);
 
+  adminStatus.textContent = "Signup successful ✅";
   setLoggedInState(u);
 });
 
@@ -187,22 +188,17 @@ loginForm.addEventListener('submit', (e) => {
 
   const admin = getStoredAdmin();
 
-  if (admin &&
-      admin.username === loginForm.username.value &&
-      admin.password === loginForm.password.value) {
+  const u = loginForm.querySelector('[name="username"]').value;
+  const p = loginForm.querySelector('[name="password"]').value;
 
+  if (admin && admin.username === u && admin.password === p) {
     setSession(admin.username);
+    adminStatus.textContent = "Logged in successfully ✅";
     setLoggedInState(admin.username);
   } else {
-    adminStatus.textContent = 'Wrong login';
+    adminStatus.textContent = "Wrong login ❌";
   }
 });
-
-logoutButton.addEventListener('click', () => {
-  clearSession();
-  location.reload();
-});
-
 // ---------------- INIT ----------------
 function checkAdminStatus() {
   const admin = getStoredAdmin();
