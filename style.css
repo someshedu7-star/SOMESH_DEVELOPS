@@ -320,37 +320,41 @@ textarea { resize: vertical; }
   }
 }
 
-.fire-typing{
-  font-size:48px;
-  font-weight:800;
-  color:#ffa500;
-  white-space:nowrap;
-  overflow:hidden;
-  border-right:4px solid #ffae00;
+.fire-typing {
+  font-size: 48px;
+  font-weight: 800;
+  color: #ffa500;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 4px solid #ffae00;
 
-  width: fit-content;
+  display: inline-block;
+  width: 0;
 
-  animation: typing 3s steps(20, end) forwards, blink .7s infinite;
-}
+  animation: typing 3s steps(16, end) forwards, blink 0.7s infinite;
 
-  /* fire glow */
   text-shadow:
-  0 0 5px #ff6a00,
-  0 0 10px #ff6a00,
-  0 0 20px #ff3c00,
-  0 0 40px #ff0000,
-  0 0 60px #ff0000;
+    0 0 5px #ff6a00,
+    0 0 10px #ff6a00,
+    0 0 20px #ff3c00,
+    0 0 40px #ff0000,
+    0 0 60px #ff0000;
 }
 
-@keyframes typing{
-  from{width:0}
-  to{width:16ch;}
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 16ch;
+  }
 }
 
-@keyframes blink{
-  50%{border-color:transparent}
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
 }
-
 /* ===== GLOWING TIMELINE ===== */
 
 #timeline {
