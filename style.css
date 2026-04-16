@@ -324,13 +324,13 @@ textarea { resize: vertical; }
   font-size:48px;
   font-weight:800;
   color:#ffa500;
-  white-space:wrap;
+  white-space:nowrap;
   overflow:hidden;
   border-right:4px solid #ffae00;
 
   /* typing animation */
   width:0;
-  animation: typing 2s steps(10) forwards, blink .7s infinite;
+  animation: typing 3s steps(0) forwards, blink .7s infinite;
 
   /* fire glow */
   text-shadow:
