@@ -111,10 +111,20 @@ function setSignupState() {
   adminActions.classList.add('hidden-block');
 }
 
-function setLoginState() {
+function setLoggedInState(username) {
   signupForm.classList.add('hidden-block');
-  loginForm.classList.remove('hidden-block');
-  adminActions.classList.add('hidden-block');
+  loginForm.classList.add('hidden-block');
+  adminActions.classList.remove('hidden-block');
+
+  // 🔥 SHOW experience button ONLY after login
+  if (openExperienceBtn) openExperienceBtn.classList.remove('hidden-block');
+
+  adminHeading.textContent = 'Admin dashboard';
+  adminDescription.textContent = useLocalMode
+    ? 'Render backend unavailable. Local mode active.'
+    : 'Manage reviews and post experiences.';
+
+  adminWelcome.textContent = `Logged in as ${username}`;
 }
 
 // ---------------- REVIEWS ----------------
