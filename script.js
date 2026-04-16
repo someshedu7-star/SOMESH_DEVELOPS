@@ -1,3 +1,10 @@
+const banner = document.getElementById("experienceBanner");
+
+if (banner) {
+  banner.addEventListener("click", () => {
+    window.location.href = "experience.html";
+  });
+}
 const reviewForm = document.querySelector('#review-form');
 const reviewList = document.querySelector('#review-list');
 const formStatus = document.querySelector('#form-status');
