@@ -9,7 +9,6 @@ const adminWelcome = document.querySelector('#admin-welcome');
 const adminReviewList = document.querySelector('#admin-review-list');
 const logoutButton = document.querySelector('#logout-button');
 
-// 🔥 NEW (Experience सिस्टम)
 const experiencePanel = document.querySelector('#experience-panel');
 const experienceForm = document.querySelector('#experience-form');
 const experienceStatus = document.querySelector('#experience-status');
@@ -21,32 +20,22 @@ const storageKeys = {
   reviews: 'somesh-blog-reviews',
   admin: 'somesh-blog-admin',
   session: 'somesh-blog-admin-session',
-  experiences: 'somesh-experiences' // 🔥 NEW
+  experiences: 'somesh-experiences'
 };
 
 let useLocalMode = window.location.protocol === 'file:';
 
 // ---------------- UTIL ----------------
-function formatDate(value) {
-  return new Date(value).toLocaleDateString(undefined, {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric'
-  });
-}
-
 function escapeHtml(value) {
   return String(value || '')
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
+    .replace(/>/g, '&gt;');
 }
 
 function readJson(key, fallback) {
   try {
-    return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback));
+    return JSON.parse(localStorage.getItem(key)) || fallback;
   } catch {
     return fallback;
   }
@@ -69,7 +58,6 @@ function saveStoredReviews(reviews) {
   writeJson(storageKeys.reviews, reviews);
 }
 
-// 🔥 NEW
 function getStoredExperiences() {
   return readJson(storageKeys.experiences, []);
 }
@@ -97,11 +85,14 @@ function setLoggedInState(username) {
   loginForm.classList.add('hidden-block');
   adminActions.classList.remove('hidden-block');
 
-  adminHeading.textContent = 'Admin dashboard';
-  adminDescription.textContent = useLocalMode
-    ? 'Render backend unavailable. Local mode active.'
-    : 'Manage reviews and post experiences.';
+  // ✅ show button
+  openExperienceBtn.classList.remove('hidden-block');
 
+  // ✅ hide panel initially
+  experiencePanel.classList.add('hidden-block');
+
+  adminHeading.textContent = 'Admin dashboard';
+  adminDescription.textContent = 'Manage reviews and post experiences.';
   adminWelcome.textContent = `Logged in as ${username}`;
 }
 
@@ -110,76 +101,44 @@ function setSignupState() {
   loginForm.classList.add('hidden-block');
   adminActions.classList.add('hidden-block');
 
-  if (openExperienceBtn) openExperienceBtn.classList.add('hidden-block');
+  openExperienceBtn.classList.add('hidden-block');
+  experiencePanel.classList.add('hidden-block');
 }
+
 function setLoginState() {
   signupForm.classList.add('hidden-block');
   loginForm.classList.remove('hidden-block');
   adminActions.classList.add('hidden-block');
 
-  if (openExperienceBtn) openExperienceBtn.classList.add('hidden-block');
-}
-
-function setLoggedInState(username) {
-  signupForm.classList.add('hidden-block');
-  loginForm.classList.add('hidden-block');
-  adminActions.classList.remove('hidden-block');
-
-  // 🔥 SHOW experience button ONLY after login
-  if (openExperienceBtn) openExperienceBtn.classList.remove('hidden-block');
-
-  adminHeading.textContent = 'Admin dashboard';
-  adminDescription.textContent = useLocalMode
-    ? 'Render backend unavailable. Local mode active.'
-    : 'Manage reviews and post experiences.';
-
-  adminWelcome.textContent = `Logged in as ${username}`;
+  openExperienceBtn.classList.add('hidden-block');
+  experiencePanel.classList.add('hidden-block');
 }
 
 // ---------------- REVIEWS ----------------
-function renderAdminReviews(reviews, loggedIn = false) {
+function renderAdminReviews(reviews) {
   if (!reviews.length) {
     adminReviewList.innerHTML = `<p>No reviews yet</p>`;
     return;
   }
 
-  adminReviewList.innerHTML = reviews.map(review => `
-    <article class="review-card" data-review-id="${review.id}">
-      <strong>${escapeHtml(review.name)}</strong>
-      <p>${escapeHtml(review.message)}</p>
-
-      <form class="reply-form">
-        <textarea name="reply">${review.reply ? escapeHtml(review.reply.text) : ''}</textarea>
-        <button type="submit">Reply</button>
-        <button type="button" class="delete-review">Delete</button>
-      </form>
-    </article>
+  adminReviewList.innerHTML = reviews.map(r => `
+    <div class="review-card">
+      <strong>${escapeHtml(r.name)}</strong>
+      <p>${escapeHtml(r.message)}</p>
+    </div>
   `).join('');
 }
 
-// ---------------- FETCH ----------------
-async function fetchJson(path, options = {}) {
-  const response = await fetch(`${API_BASE}${path}`, {
-    ...options,
-    credentials: 'include'
-  });
+// ---------------- EXPERIENCE ----------------
 
-  if (!response.ok) throw new Error();
-  return await response.json();
-}
+// Toggle panel
+openExperienceBtn?.addEventListener('click', () => {
+  experiencePanel.classList.toggle('hidden-block');
+});
 
-// ---------------- EXPERIENCE UI ----------------
-
-// 🔥 Toggle panel
-if (openExperienceBtn) {
-  openExperienceBtn.addEventListener('click', () => {
-    experiencePanel.classList.toggle('hidden-block');
-  });
-}
-
-// 🔥 Submit experience
-experienceForm?.addEventListener('submit', async (event) => {
-  event.preventDefault();
+// Submit
+experienceForm?.addEventListener('submit', (e) => {
+  e.preventDefault();
   experienceStatus.textContent = 'Posting...';
 
   const formData = new FormData(experienceForm);
@@ -192,84 +151,40 @@ experienceForm?.addEventListener('submit', async (event) => {
   }
 
   // LOCAL MODE
-  if (useLocalMode) {
-    const reader = new FileReader();
-    reader.onload = () => {
-      const data = getStoredExperiences();
-      data.push({
-        id: Date.now(),
-        text,
-        image: reader.result
-      });
-      saveStoredExperiences(data);
+  const reader = new FileReader();
+  reader.onload = () => {
+    const data = getStoredExperiences();
 
-      experienceStatus.textContent = 'Saved locally';
-      experienceForm.reset();
-    };
-    reader.readAsDataURL(image);
-    return;
-  }
-
-  // BACKEND
-  try {
-    const upload = new FormData();
-    upload.append('text', text);
-    upload.append('image', image);
-
-    await fetch(`${API_BASE}/api/admin/experience`, {
-      method: 'POST',
-      body: upload,
-      credentials: 'include'
+    data.push({
+      id: Date.now(),
+      text,
+      image: reader.result
     });
 
-    experienceStatus.textContent = 'Posted 🚀';
+    saveStoredExperiences(data);
+    experienceStatus.textContent = 'Saved ✅';
     experienceForm.reset();
-  } catch {
-    useLocalMode = true;
-    experienceStatus.textContent = 'Saved locally (fallback)';
-  }
+  };
+
+  reader.readAsDataURL(image);
 });
-
-// ---------------- INIT ----------------
-async function checkAdminStatus() {
-  if (useLocalMode) {
-    const admin = getStoredAdmin();
-    if (admin && getSession() === admin.username) {
-      setLoggedInState(admin.username);
-      renderAdminReviews(getStoredReviews(), true);
-      return;
-    }
-    if (admin) setLoginState(); else setSignupState();
-    return;
-  }
-
-  try {
-    const data = await fetchJson('/api/admin/status');
-    if (data.authenticated) {
-      setLoggedInState(data.username);
-      renderAdminReviews(data.reviews, true);
-    } else {
-      setLoginState();
-    }
-  } catch {
-    useLocalMode = true;
-    checkAdminStatus();
-  }
-}
 
 // ---------------- AUTH ----------------
 signupForm.addEventListener('submit', (e) => {
   e.preventDefault();
+
   const u = signupForm.username.value;
   const p = signupForm.password.value;
 
   writeJson(storageKeys.admin, { username: u, password: p });
   setSession(u);
+
   setLoggedInState(u);
 });
 
 loginForm.addEventListener('submit', (e) => {
   e.preventDefault();
+
   const admin = getStoredAdmin();
 
   if (admin &&
@@ -288,6 +203,19 @@ logoutButton.addEventListener('click', () => {
   location.reload();
 });
 
-// ---------------- START ----------------
+// ---------------- INIT ----------------
+function checkAdminStatus() {
+  const admin = getStoredAdmin();
+  const session = getSession();
+
+  if (admin && session === admin.username) {
+    setLoggedInState(session);
+    renderAdminReviews(getStoredReviews());
+  } else {
+    if (admin) setLoginState();
+    else setSignupState();
+  }
+}
+
 checkAdminStatus();
 ```
